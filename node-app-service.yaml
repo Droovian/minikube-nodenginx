@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-service
+spec:
+  selector:
+    app: node-app        # should match the pod's label
+  type: NodePort         
+  ports:
+    - protocol: TCP
+      port: 3000         # Service port (cluster-internal)
+      targetPort: 3000   # Container port
+      nodePort: 30080    # App accessible outside the cluster on port 30080 on the host machine.
+
+# we need this service as although we can access our pod directly the IP can change & aren't exposed outside kube cluster

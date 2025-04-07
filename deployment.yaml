@@ -1,0 +1,20 @@
+apiVersion: apps/v1 # used for deployments etc
+kind: Deployment # type of kubernetes object
+metadata:
+  name: node-app
+spec:
+  replicas: 1 # run 1 pod
+  selector:
+    matchLabels:
+      app: node-app
+  template: # blueprint for the pods the Deployment will create
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-app
+        image: kube-nodeinx # use this docker image when creating container ( built locally earlier )
+        imagePullPolicy: Never # don't try pulling, its local
+        ports:
+        - containerPort: 3000 # obvious -> listen on port 3000
